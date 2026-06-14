@@ -1,0 +1,564 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valva Market</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="header-actions mobile-icons">
+          <button class="icon-btn" data-view="profile" title="Account" aria-label="Account" type="button">
+            <span class="ui-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <circle cx="12" cy="8" r="3.2"></circle>
+                <path d="M6 19c1.4-3 3.9-4.5 6-4.5s4.6 1.5 6 4.5"></path>
+              </svg>
+            </span>
+          </button>
+          <button class="icon-btn cart-btn" data-view="cart" title="Cart" aria-label="Cart" type="button">
+            <span class="ui-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path d="M4 5h2l2 10h9l2-7H7.4"></path>
+                <circle cx="10" cy="19" r="1.4"></circle>
+                <circle cx="17" cy="19" r="1.4"></circle>
+              </svg>
+            </span>
+            <b id="cartBadge">0</b>
+          </button>
+        </div>
+
+        <button class="brand" data-view="home" aria-label="Go to home" type="button">
+          <img class="brand-logo" src="brand-logo.png" alt="Valva Market logo" />
+          <div class="brand-copy">
+            <strong>Valva Market</strong>
+          </div>
+        </button>
+
+        <label class="search">
+          <span class="ui-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="presentation">
+              <circle cx="11" cy="11" r="5.5"></circle>
+              <path d="M15.2 15.2 19 19"></path>
+            </svg>
+          </span>
+          <input id="searchInput" type="search" placeholder="Search products" autocomplete="off" spellcheck="false" />
+        </label>
+
+        <div class="header-actions desktop-icons">
+          <button class="icon-btn" data-view="profile" title="Account" aria-label="Account" type="button">
+            <span class="ui-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <circle cx="12" cy="8" r="3.2"></circle>
+                <path d="M6 19c1.4-3 3.9-4.5 6-4.5s4.6 1.5 6 4.5"></path>
+              </svg>
+            </span>
+          </button>
+          <button class="icon-btn cart-btn" data-view="cart" title="Cart" aria-label="Cart" type="button">
+            <span class="ui-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="presentation">
+                <path d="M4 5h2l2 10h9l2-7H7.4"></path>
+                <circle cx="10" cy="19" r="1.4"></circle>
+                <circle cx="17" cy="19" r="1.4"></circle>
+              </svg>
+            </span>
+            <b id="cartBadgeDesktop">0</b>
+          </button>
+        </div>
+      </header>
+
+      <nav class="category-nav" aria-label="Product categories">
+        <button data-filter="all" class="chip active" type="button">All</button>
+        <button data-filter="accessories" class="chip" type="button">Accessories</button>
+        <button data-filter="fashion" class="chip" type="button">Fashion</button>
+        <button data-filter="watches" class="chip" type="button">Watches</button>
+        <button data-filter="bags" class="chip" type="button">Bags</button>
+        <button data-filter="jewelry" class="chip" type="button">Jewelry</button>
+        <button data-filter="apparel" class="chip" type="button">Apparel</button>
+        <button data-filter="footwear" class="chip" type="button">Footwear</button>
+      </nav>
+
+      <main class="content">
+        <section class="view active" data-view="home">
+          <section class="hero">
+            <div class="hero-visual" aria-label="Featured products slideshow">
+              <img id="heroBanner" class="hero-banner" src="1.png" alt="Featured accessories showcase" loading="eager" decoding="async" />
+            </div>
+          </section>
+
+          <section class="filter-panel panel">
+            <div class="filter-row">
+              <div>
+                <p class="eyebrow">Filter by budget</p>
+                <strong id="priceRangeLabel">Under &#8377;5000</strong>
+              </div>
+              <input id="priceRange" type="range" min="500" max="5000" step="100" value="5000" />
+            </div>
+          </section>
+
+          <section class="grid" id="homeGrid"></section>
+        </section>
+
+        <section class="view" data-view="product">
+          <div class="page-head">
+            <button class="back-btn" data-view="home" aria-label="Back" type="button">Back</button>
+          </div>
+
+          <section class="product-layout">
+            <div class="gallery panel">
+              <div class="main-photo">
+                <img id="detailImage" alt="" />
+              </div>
+              <div class="thumbs" id="detailThumbs"></div>
+            </div>
+
+            <div class="detail-panel panel">
+              <h2 id="detailName">Product</h2>
+              <div class="detail-topline">
+                <span id="detailCategory" class="pill">Accessories</span>
+                <span id="detailRating" class="rating">4.5</span>
+                <span id="detailReviewCount" class="muted">1.2k reviews</span>
+              </div>
+              <p class="price-row">
+                <strong id="detailPrice">&#8377;0</strong>
+                <del id="detailMrp">&#8377;0</del>
+                <span id="detailDiscount" class="discount">0% off</span>
+              </p>
+              <p id="detailOffer" class="offer-line"></p>
+              <p id="detailDelivery" class="delivery-line"></p>
+              <p id="detailDescription" class="description"></p>
+
+              <div class="qty-card">
+                <span>Quantity</span>
+                <div class="qty-stepper">
+                  <button type="button" id="detailQtyMinus">-</button>
+                  <strong id="detailQtyValue">1</strong>
+                  <button type="button" id="detailQtyPlus">+</button>
+                </div>
+              </div>
+
+              <div class="detail-actions">
+                <button class="secondary-btn" id="addFromDetail" type="button">Add to Cart</button>
+                <button class="primary-btn" id="buyFromDetail" type="button">Buy Now</button>
+              </div>
+
+              <div class="detail-columns">
+                <section>
+                  <h3>Key features</h3>
+                  <ul id="detailHighlights" class="detail-list"></ul>
+                </section>
+                <section>
+                  <h3>What is included</h3>
+                  <ul id="detailIncluded" class="detail-list"></ul>
+                </section>
+                <section>
+                  <h3>Product specs</h3>
+                  <div id="detailSpecs" class="spec-grid"></div>
+                </section>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="view" data-view="cart">
+          <div class="page-head">
+            <button class="back-btn" data-view="home" aria-label="Back" type="button">Back</button>
+            <div>
+              <p class="eyebrow">
+                <span class="eyebrow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M4 5h2l2 10h9l2-7H7.4"></path>
+                    <circle cx="10" cy="19" r="1.4"></circle>
+                    <circle cx="17" cy="19" r="1.4"></circle>
+                  </svg>
+                </span>
+                Cart
+              </p>
+              <h2>Buying list</h2>
+            </div>
+          </div>
+          <div class="cart-layout">
+            <div>
+              <p class="eyebrow">Products you are buying</p>
+              <div id="cartList" class="cart-list"></div>
+            </div>
+            <aside class="cart-summary panel">
+              <h3>Order summary</h3>
+              <div class="summary-row"><span>Items</span><strong id="cartItemCount">0</strong></div>
+              <div class="summary-row total"><span>Total</span><strong id="cartTotal">&#8377;0</strong></div>
+              <button class="primary-btn full" data-view="checkout-address" type="button">Checkout</button>
+              <button class="secondary-btn full" data-view="home" type="button">Continue shopping</button>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view" data-view="checkout-address">
+          <div class="page-head">
+            <button class="back-btn" data-view="cart" aria-label="Back" type="button">Back</button>
+            <div>
+              <p class="eyebrow">Checkout</p>
+              <h2>Delivery address</h2>
+            </div>
+          </div>
+          <div class="panel checkout-panel">
+            <div id="deliveryAddressBody"></div>
+            <button class="primary-btn full" id="saveAddressBtn" type="button">Continue to payment</button>
+          </div>
+        </section>
+
+        <section class="view" data-view="checkout-confirm">
+          <div class="page-head">
+            <button class="back-btn" data-view="checkout-address" aria-label="Back" type="button">Back</button>
+            <div>
+              <p class="eyebrow">
+                <span class="eyebrow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M5 7h14l-1 10H6z"></path>
+                    <path d="M9 7V5h6v2"></path>
+                    <path d="M9 11h6"></path>
+                  </svg>
+                </span>
+                Checkout
+              </p>
+              <h2>Order confirmation</h2>
+            </div>
+          </div>
+          <div class="panel confirm-panel">
+            <div id="orderSummary"></div>
+            <button class="primary-btn full" data-view="payment" type="button">Proceed to payment</button>
+          </div>
+        </section>
+
+        <section class="view" data-view="payment">
+          <div class="page-head">
+            <button class="back-btn" data-view="checkout-confirm" aria-label="Back" type="button">Back</button>
+            <div>
+              <p class="eyebrow">
+                <span class="eyebrow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <rect x="4" y="6" width="16" height="12" rx="2"></rect>
+                    <path d="M4 10h16"></path>
+                    <path d="M7 15h3"></path>
+                  </svg>
+                </span>
+                Payment
+              </p>
+              <h2>Select method</h2>
+            </div>
+          </div>
+          <div class="payment-shell">
+            <section class="panel payment-methods-card">
+              <div class="payment-methods-head">
+                <div>
+                  <p class="eyebrow">Payment Method</p>
+                  <h3>Choose a method</h3>
+                </div>
+                <span class="payment-status">Secure</span>
+              </div>
+              <div class="payment-option-list">
+                <button class="payment-option-card active" data-pay="cod" type="button">
+                  <span class="payment-brand cod">COD</span>
+                  <span class="payment-option-copy">
+                    <span class="payment-option-name">Cash on Delivery</span>
+                    <span class="payment-option-meta">Pay at your doorstep</span>
+                  </span>
+                  <span class="payment-dot" aria-hidden="true"></span>
+                </button>
+                <button class="payment-option-card" data-pay="upi" type="button">
+                  <span class="payment-brand upi-stack" aria-hidden="true">
+                    <span class="mini-logo phonepe">P</span>
+                    <span class="mini-logo gpay">G</span>
+                    <span class="mini-logo paytm">T</span>
+                  </span>
+                  <span class="payment-option-copy">
+                    <span class="payment-option-name">UPI</span>
+                    <span class="payment-option-meta">PhonePe, Google Pay, Paytm</span>
+                  </span>
+                  <span class="payment-dot" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="payment-summary-box">
+                <div class="summary-row"><span>Cost Of Purchase</span><strong id="paymentCost">&#8377;0</strong></div>
+                <div class="summary-row"><span>Shipping Fee</span><strong id="paymentShipping">&#8377;0</strong></div>
+                <div class="summary-row total"><span>Total</span><strong id="paymentGrandTotal">&#8377;0</strong></div>
+              </div>
+            </section>
+
+            <section class="panel payment-form-card">
+              <div class="payment-methods-head">
+                <div>
+                  <p class="eyebrow">Add Payment Method</p>
+                  <h3>Payment details</h3>
+                </div>
+              </div>
+              <div id="paymentFormBody" class="payment-form-body"></div>
+              <button class="primary-btn full" id="placeOrderBtn" type="button">Confirm order</button>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" data-view="tracking">
+          <div class="page-head">
+            <button class="back-btn" data-view="home" aria-label="Back" type="button">Back</button>
+            <div>
+              <p class="eyebrow">
+                <span class="eyebrow-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" role="presentation">
+                    <path d="M3 14h10v5H3z"></path>
+                    <path d="M13 15h4l3 2v2h-7z"></path>
+                    <circle cx="8" cy="19" r="1.6"></circle>
+                    <circle cx="18" cy="19" r="1.6"></circle>
+                  </svg>
+                </span>
+                Tracking
+              </p>
+              <h2>Track your order</h2>
+            </div>
+          </div>
+          <div class="tracking-card panel">
+            <p id="trackingEta">Estimated delivery</p>
+            <div class="timeline" id="timeline"></div>
+          </div>
+        </section>
+
+        <section class="view" data-view="profile">
+          <div class="page-head">
+            <button class="back-btn" data-view="home" aria-label="Back" type="button">Back</button>
+            <div>
+              <h2>Account</h2>
+            </div>
+          </div>
+          <div class="profile-card panel">
+            <img class="profile-logo" src="brand-logo.png" alt="Valva Market logo" />
+            <div>
+              <strong id="profileName">Guest User</strong>
+              <p id="profileEmail" class="muted">guest@example.com</p>
+            </div>
+            <button class="secondary-btn" id="logoutBtn" type="button">
+              <span class="btn-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" role="presentation">
+                  <path d="M12 5v4"></path>
+                  <path d="M8.5 7.2A6.5 6.5 0 1 0 16 7.2"></path>
+                </svg>
+              </span>
+              Reset profile
+            </button>
+          </div>
+          <div class="profile-stack">
+            <div class="panel auth-panel">
+              <div class="panel-head">
+                <div>
+                  <p class="eyebrow">Google Sign-In</p>
+                  <h3>Account access</h3>
+                </div>
+                <span id="roleBadge" class="payment-status">Guest</span>
+              </div>
+              <div id="googleSignInButton" class="google-signin-slot"></div>
+              <div id="authStatus" class="auth-status muted">Sign in with the approved Google account to unlock owner tools.</div>
+            </div>
+            <div class="profile-lists">
+              <div class="panel">
+                <h3>Saved addresses</h3>
+                <div id="savedAddresses"></div>
+              </div>
+              <div class="panel">
+                <h3>Orders</h3>
+                <div id="orderHistory"></div>
+              </div>
+              <div class="panel">
+                <h3>Order details</h3>
+                <div id="selectedOrderDetails" class="selected-order-details"></div>
+              </div>
+            </div>
+          </div>
+          <section id="ownerDashboard" class="owner-dashboard panel">
+            <div class="panel-head">
+              <div>
+                <p class="eyebrow">Owner Dashboard</p>
+                <h3>Protected controls</h3>
+              </div>
+              <span class="payment-status">Admin only</span>
+            </div>
+            <div class="owner-grid">
+              <form id="ownerProductForm" class="owner-card">
+                <h4 id="ownerFormTitle">Add product</h4>
+                <input type="hidden" id="ownerProductId" />
+                <label class="field">
+                  <span>Product name</span>
+                  <input id="ownerProductName" type="text" placeholder="Product name" />
+                </label>
+                <div class="owner-row">
+                  <label class="field">
+                    <span>Category</span>
+                    <input id="ownerProductCategory" type="text" placeholder="accessories / fashion" />
+                  </label>
+                  <label class="field">
+                    <span>Type</span>
+                    <input id="ownerProductType" type="text" placeholder="watches / apparel" />
+                  </label>
+                </div>
+                <div class="owner-row">
+                  <label class="field">
+                    <span>Price</span>
+                    <input id="ownerProductPrice" type="number" min="0" step="1" placeholder="1999" />
+                  </label>
+                  <label class="field">
+                    <span>MRP</span>
+                    <input id="ownerProductMrp" type="number" min="0" step="1" placeholder="2999" />
+                  </label>
+                </div>
+                <label class="field">
+                  <span>Image URL</span>
+                  <input id="ownerProductImage" type="url" placeholder="https://..." />
+                </label>
+                <label class="field">
+                  <span>Description</span>
+                  <textarea id="ownerProductDescription" rows="3" placeholder="Short product description"></textarea>
+                </label>
+                <div class="owner-actions">
+                  <button class="primary-btn" id="saveOwnerProductBtn" type="submit">Save product</button>
+                  <button class="secondary-btn" id="resetOwnerFormBtn" type="button">Clear</button>
+                </div>
+              </form>
+              <div class="owner-card">
+                <h4>Catalog items</h4>
+                <div id="ownerCatalogList" class="owner-list"></div>
+              </div>
+              <div class="owner-card">
+                <h4>Order queue</h4>
+                <div id="ownerOrderList" class="owner-list"></div>
+              </div>
+              <div class="owner-card">
+                <h4>Payment details</h4>
+                <div id="ownerPaymentDetails" class="owner-list"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+            <footer class="footer">
+        <div class="footer-grid">
+          <div>
+            <h3>ABOUT</h3>
+            <ul>
+              <li>Contact Us</li>
+              <li>About Us</li>
+              <li>Careers</li>
+              <li>Valva Stories</li>
+              <li>Press</li>
+              <li>Corporate Information</li>
+            </ul>
+          </div>
+          <div>
+            <h3>HELP</h3>
+            <ul>
+              <li>Payments</li>
+              <li>Shipping</li>
+              <li>Cancellation & Returns</li>
+              <li>FAQ</li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONSUMER POLICY</h3>
+            <ul>
+              <li>Cancellation & Returns</li>
+              <li>Terms Of Use</li>
+              <li>Security</li>
+              <li>Privacy</li>
+              <li>Sitemap</li>
+              <li>Grievance Redressal</li>
+              <li>EPR Compliance</li>
+              <li>FSSAI Food Safety</li>
+              <li>Connect App</li>
+            </ul>
+          </div>
+          <div>
+            <h3>MAIL US:</h3>
+            <p>
+              Valva Market Private Limited,<br />
+              Buildings Alyssa, Begonia & Clove Embassy Tech Village,<br />
+              Outer Ring Road, Devarabeesanahalli Village,<br />
+              Bengaluru, 560103,<br />
+              Karnataka, India
+            </p>
+            <div class="social-block">
+              <span>Social:</span>
+              <div class="social-icons">
+                <a href="#" aria-label="Facebook">
+                  <span class="social-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation">
+                      <path d="M14 8h2V5h-2a3 3 0 0 0-3 3v2H9v3h2v6h3v-6h2.3l.4-3H14V8.5c0-.3.2-.5.5-.5Z"></path>
+                    </svg>
+                  </span>
+                </a>
+                <a href="#" aria-label="X">
+                  <span class="social-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation">
+                      <path d="M5 5l14 14"></path>
+                      <path d="M19 5 5 19"></path>
+                    </svg>
+                  </span>
+                </a>
+                <a href="#" aria-label="YouTube">
+                  <span class="social-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation">
+                      <rect x="4" y="7" width="16" height="10" rx="3"></rect>
+                      <path d="M11 10.2 15 12l-4 1.8z"></path>
+                    </svg>
+                  </span>
+                </a>
+                <a href="#" aria-label="Instagram">
+                  <span class="social-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation">
+                      <rect x="5" y="5" width="14" height="14" rx="4"></rect>
+                      <circle cx="12" cy="12" r="3.2"></circle>
+                      <circle cx="16.5" cy="7.5" r="1"></circle>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3>REGISTERED OFFICE ADDRESS:</h3>
+            <p>
+              Valva Market Private Limited,<br />
+              Buildings Alyssa, Begonia & Clove Embassy Tech Village,<br />
+              Outer Ring Road, Devarabeesanahalli Village,<br />
+              Bengaluru, 560103, Karnataka, India<br />
+              CIN : U51109KA2012PTC066107<br />
+              Telephone: 044-45614700 / 044-67415800
+            </p>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-mini-links">
+            <a href="#">Become a Seller</a>
+            <a href="#">Advertise</a>
+            <a href="#">Gift Cards</a>
+            <a href="#">Help Center</a>
+          </div>
+          <div class="footer-copy">© 2007-2026 ValvaMarket.com</div>
+          <div class="payment-badges" aria-label="Payment methods">
+            <span>VISA</span>
+            <span>Mastercard</span>
+            <span>RuPay</span>
+            <span>Net Banking</span>
+            <span>COD</span>
+            <span>EMI</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      window.VALVA_API_BASE_URL = "http://localhost:3001";
+      window.VALVA_UPI_VPA = "7904564217@ptyes";
+    </script>
+    <script src="app.js"></script>
+  </body>
+</html>
